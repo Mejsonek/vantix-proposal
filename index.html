@@ -150,7 +150,7 @@ body::after{
     </div>
     <div class="fu d1" style="text-align:right">
       <div style="font-size:9px;color:var(--dim);letter-spacing:.08em">Oferta indywidualna · Poufne</div>
-      <div style="font-size:9px;color:var(--gold);margin-top:3px;letter-spacing:.06em">13.04.2026 · kacper@vantix.pl</div>
+      <div style="font-size:9px;color:var(--gold);margin-top:3px;letter-spacing:.06em">13.04.2026 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b5ded4d6c5d0c7f5c3d4dbc1dccd9bc5d9">[email&#160;protected]</a></div>
     </div>
   </div>
 </div>
@@ -179,42 +179,94 @@ body::after{
 <div class="page" style="padding-top:64px;padding-bottom:64px">
   <div class="sn" style="margin-bottom:40px">01 · Dlaczego 7 500 PLN to inwestycja, nie koszt</div>
 
-  <div class="card" style="margin-bottom:16px;overflow:hidden">
-    <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--panel)">
-      <div style="padding:14px 20px;font-size:9px;color:var(--dim);letter-spacing:.15em;text-transform:uppercase;border-right:1px solid var(--line)">Bez systemu · miesięcznie</div>
-      <div style="padding:14px 20px;font-size:9px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase">Z systemem · jednorazowo</div>
+  <!-- column headers -->
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:0;margin-bottom:8px;padding:0 4px">
+    <div></div>
+    <div style="font-size:9px;color:var(--dim);letter-spacing:.15em;text-transform:uppercase;padding-left:20px">Bez systemu</div>
+    <div style="font-size:9px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;padding-left:20px">Z systemem</div>
+  </div>
+
+  <!-- row 1: koszt -->
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:0;margin-bottom:8px">
+    <div style="padding:20px 16px 20px 0;display:flex;align-items:center">
+      <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase">Koszt</span>
     </div>
-    <div class="crow">
-      <div class="crow-cell dim">Handlowiec — research leadów</div>
-      <div class="crow-cell dim">Koszt setup</div>
+    <div style="padding:20px;background:rgba(240,96,96,.06);border:1px solid rgba(240,96,96,.12);margin-right:6px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">💸</span>
+      <div>
+        <div class="syne red" style="font-size:1.15rem;font-weight:700">3 500 PLN</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">każdy miesiąc, w nieskończoność</div>
+      </div>
     </div>
-    <div class="crow">
-      <div class="crow-cell red" style="font-weight:500">~3 500 PLN / miesiąc</div>
-      <div class="crow-cell green" style="font-weight:500">7 500 PLN · raz na zawsze</div>
+    <div style="padding:20px;background:rgba(52,217,165,.06);border:1px solid rgba(52,217,165,.15);display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">✦</span>
+      <div>
+        <div class="syne green" style="font-size:1.15rem;font-weight:700">7 500 PLN</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">raz na zawsze</div>
+      </div>
     </div>
-    <div class="crow">
-      <div class="crow-cell dim">Błędy, subiektywność, przeoczenia</div>
-      <div class="crow-cell dim">Jakość leadów</div>
+  </div>
+
+  <!-- row 2: czas -->
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:0;margin-bottom:8px">
+    <div style="padding:20px 16px 20px 0;display:flex;align-items:center">
+      <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase">Czas / tydzień</span>
     </div>
-    <div class="crow">
-      <div class="crow-cell red">nieuniknione</div>
-      <div class="crow-cell green">scoring filtruje automatycznie</div>
+    <div style="padding:20px;background:rgba(240,96,96,.06);border:1px solid rgba(240,96,96,.12);margin-right:6px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">⏳</span>
+      <div>
+        <div class="syne red" style="font-size:1.15rem;font-weight:700">15–20h</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">handlowiec na researchu</div>
+      </div>
     </div>
-    <div class="crow">
-      <div class="crow-cell dim">Godziny pracy tygodniowo</div>
-      <div class="crow-cell dim">Nakład operacyjny</div>
+    <div style="padding:20px;background:rgba(52,217,165,.06);border:1px solid rgba(52,217,165,.15);display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">⚡</span>
+      <div>
+        <div class="syne green" style="font-size:1.15rem;font-weight:700">0h</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">system działa autonomicznie</div>
+      </div>
     </div>
-    <div class="crow">
-      <div class="crow-cell red">15–20h / tydzień</div>
-      <div class="crow-cell green">0h — system autonomiczny</div>
+  </div>
+
+  <!-- row 3: jakość -->
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:0;margin-bottom:8px">
+    <div style="padding:20px 16px 20px 0;display:flex;align-items:center">
+      <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase">Jakość leadów</span>
     </div>
-    <div class="crow">
-      <div class="crow-cell dim">Skalowalność</div>
-      <div class="crow-cell dim">Skalowalność</div>
+    <div style="padding:20px;background:rgba(240,96,96,.06);border:1px solid rgba(240,96,96,.12);margin-right:6px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">🎲</span>
+      <div>
+        <div class="syne red" style="font-size:1.15rem;font-weight:700">losowa</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">błędy, subiektywność</div>
+      </div>
     </div>
-    <div class="crow">
-      <div class="crow-cell red">kolejny etat</div>
-      <div class="crow-cell green">nieograniczona</div>
+    <div style="padding:20px;background:rgba(52,217,165,.06);border:1px solid rgba(52,217,165,.15);display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">🎯</span>
+      <div>
+        <div class="syne green" style="font-size:1.15rem;font-weight:700">scoring 0–10</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">tylko Hot i Warm trafiają do Ciebie</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- row 4: skalowalność -->
+  <div style="display:grid;grid-template-columns:160px 1fr 1fr;gap:0;margin-bottom:16px">
+    <div style="padding:20px 16px 20px 0;display:flex;align-items:center">
+      <span style="font-size:10px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase">Skalowalność</span>
+    </div>
+    <div style="padding:20px;background:rgba(240,96,96,.06);border:1px solid rgba(240,96,96,.12);margin-right:6px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">🧱</span>
+      <div>
+        <div class="syne red" style="font-size:1.15rem;font-weight:700">kolejny etat</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">liniowy wzrost kosztów</div>
+      </div>
+    </div>
+    <div style="padding:20px;background:rgba(52,217,165,.06);border:1px solid rgba(52,217,165,.15);display:flex;align-items:center;gap:12px">
+      <span style="font-size:18px;line-height:1">∞</span>
+      <div>
+        <div class="syne green" style="font-size:1.15rem;font-weight:700">nieograniczona</div>
+        <div style="font-size:10px;color:var(--dim);margin-top:2px">100 lub 10 000 firm — ten sam koszt</div>
+      </div>
     </div>
   </div>
 
@@ -421,7 +473,7 @@ body::after{
   <div style="display:inline-flex;flex-wrap:wrap;justify-content:center;border:1px solid var(--line-g);overflow:hidden">
     <div style="padding:18px 26px;border-right:1px solid var(--line-g);display:flex;align-items:center;gap:10px">
       <span style="color:var(--gold)">✉</span>
-      <span style="font-size:11px;letter-spacing:.06em">kacper@vantix.pl</span>
+      <span style="font-size:11px;letter-spacing:.06em"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0863696b786d7a487e69667c6170267864">[email&#160;protected]</a></span>
     </div>
     <div style="padding:18px 26px;border-right:1px solid var(--line-g);display:flex;align-items:center;gap:10px">
       <span style="color:var(--gold)">◈</span>
@@ -438,10 +490,4 @@ body::after{
 <div style="position:relative;z-index:2;border-top:1px solid var(--line);padding:18px 32px">
   <div style="max-width:820px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
     <div style="font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase">© 2026 Vantix AI Software House</div>
-    <div style="font-size:8px;color:var(--muted);letter-spacing:.08em">Oferta ważna 14 dni · Dokument poufny · DOC-ICP-001</div>
-    <div style="font-size:8px;color:var(--muted);letter-spacing:.06em">13.04.2026</div>
-  </div>
-</div>
-
-</body>
-</html>
+    <div style=
