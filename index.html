@@ -8,18 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-/* ── tokens ── */
 :root{
   --bg:#030508;--surface:#080c13;--panel:#0c1120;
   --gold:#c8a44a;--gold-hi:#e5c96e;--gold-lo:rgba(200,164,74,.12);
   --ivory:#ece9e0;--dim:#7a8799;--muted:#3d4a58;
   --green:#34d9a5;--red:#f06060;
   --line:rgba(255,255,255,.055);--line-g:rgba(200,164,74,.15);
-  --r:2px;
-  --pad:20px;
 }
-
-/* ── reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
@@ -27,336 +22,285 @@ body{
   font-family:'DM Mono',monospace;font-size:14px;line-height:1.65;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-
-/* ── bg effects ── */
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
   background-size:60px 60px;
   mask-image:radial-gradient(ellipse 100% 60% at 50% 0%,black 30%,transparent 100%);
 }
-
-/* ── layout ── */
-.wrap{max-width:800px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:2}
-
-/* ── type ── */
+.wrap{max-width:800px;margin:0 auto;padding:0 20px;position:relative;z-index:2}
 .syne{font-family:'Syne',sans-serif}
 .gold-grad{background:linear-gradient(120deg,var(--gold-hi),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-
-/* ── section number ── */
 .sn{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:32px}
 .sn::after{content:'';flex:1;height:1px;background:var(--line-g)}
-
-/* ── dividers ── */
 .hl{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);display:block}
 .hl-dim{height:1px;background:var(--line);display:block}
-
-/* ── tag ── */
-.tag{display:inline-flex;align-items:center;padding:4px 12px;border:1px solid var(--line-g);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-
-/* ── card ── */
+.tag{display:inline-flex;padding:4px 12px;border:1px solid var(--line-g);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
 .card{background:var(--surface);border:1px solid var(--line);position:relative;overflow:hidden}
 .card-g{border-color:var(--line-g);background:var(--panel)}
-.card-glow::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(140deg,rgba(200,164,74,.04),transparent 60%)}
 
-/* ── animations ── */
 @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes glow{0%,100%{opacity:.5}50%{opacity:1}}
-
 .fu{animation:fadeup .6s ease both}
 .d1{animation-delay:.08s}.d2{animation-delay:.18s}.d3{animation-delay:.3s}.d4{animation-delay:.42s}
 
 /* ── hero stats ── */
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
-.stat{padding:20px 16px;background:var(--surface);display:flex;flex-direction:column;gap:5px}
+.stat{padding:20px 16px;background:var(--surface);display:flex;flex-direction:column;gap:4px}
 .stat-v{font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:var(--gold);line-height:1}
 .stat-l{font-size:8px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-top:4px}
 
-/* ── ROI rows ── */
-.roi-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.roi-cell{padding:18px 16px;display:flex;align-items:center;gap:12px;border:1px solid transparent}
-.roi-cell-bad{background:rgba(240,96,96,.06);border-color:rgba(240,96,96,.14)}
-.roi-cell-good{background:rgba(52,217,165,.06);border-color:rgba(52,217,165,.16)}
+/* ── ROI cards ── */
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.roi-card{padding:18px 16px;display:flex;align-items:center;gap:12px;border:1px solid transparent}
+.roi-bad{background:rgba(240,96,96,.06);border-color:rgba(240,96,96,.14)}
+.roi-good{background:rgba(52,217,165,.06);border-color:rgba(52,217,165,.16)}
 .roi-icon{font-size:20px;line-height:1;flex-shrink:0}
-.roi-val{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;line-height:1.2}
-.roi-sub{font-size:10px;color:var(--dim);margin-top:3px}
-.roi-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.roi-label{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:2px}
+.roi-val{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;line-height:1.2}
+.roi-val-bad{color:var(--red)}
+.roi-val-good{color:var(--green)}
+.roi-sub{font-size:10px;color:var(--dim);margin-top:3px;line-height:1.4}
 
 /* ── deliverables ── */
 .drow{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
 .drow:last-child{border-bottom:none}
-.drow-n{font-size:9px;color:var(--gold);width:20px;flex-shrink:0;padding-top:2px;letter-spacing:.08em}
+.drow-n{font-size:9px;color:var(--gold);width:20px;flex-shrink:0;padding-top:2px}
 .drow-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;margin-bottom:5px}
 .drow-body{font-size:11px;color:var(--dim);line-height:1.75}
 
-/* ── sources ── */
+/* ── pills ── */
 .pill{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--line);font-size:10px;color:var(--dim)}
 .pill-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
 
 /* ── timeline ── */
-.tl{display:flex;flex-direction:column}
-.tl-item{display:grid;grid-template-columns:90px 24px 1fr;align-items:start}
-.tl-when{font-size:9px;color:var(--dim);text-align:right;padding-right:14px;padding-top:2px;line-height:1.6;letter-spacing:.04em}
+.tl-item{display:flex;gap:0;align-items:flex-start;margin-bottom:0}
+.tl-when{
+  font-size:9px;color:var(--dim);letter-spacing:.04em;line-height:1.5;
+  flex-shrink:0;width:80px;text-align:right;padding-right:14px;padding-top:2px;
+}
 .tl-when-gold{color:var(--gold);font-weight:500}
-.tl-spine{display:flex;flex-direction:column;align-items:center}
-.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;box-shadow:0 0 8px rgba(200,164,74,.5);margin-top:2px}
-.tl-dot-last{width:8px;height:8px;border-radius:50%;background:var(--gold-hi);flex-shrink:0;box-shadow:0 0 12px rgba(229,201,110,.7);margin-top:2px;animation:glow 2s ease infinite}
-.tl-line{width:1px;flex:1;min-height:44px;background:var(--line)}
-.tl-content{padding-left:14px;padding-bottom:32px}
+.tl-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(200,164,74,.5);margin-top:2px;flex-shrink:0}
+.tl-dot-last{width:8px;height:8px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 12px rgba(229,201,110,.7);margin-top:2px;flex-shrink:0;animation:glow 2s ease infinite}
+.tl-line{width:1px;flex:1;min-height:40px;background:var(--line);margin-top:4px}
+.tl-content{padding-left:14px;padding-bottom:32px;flex:1;min-width:0}
 .tl-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;margin-bottom:4px}
 .tl-title-gold{color:var(--gold)}
 .tl-desc{font-size:11px;color:var(--dim);line-height:1.75}
 
-/* ── price ── */
+/* ── pricing ── */
 .price-num{
-  font-family:'Syne',sans-serif;font-size:3.2rem;font-weight:800;line-height:1;
+  font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;line-height:1;
   background:linear-gradient(120deg,var(--gold-hi),var(--gold),var(--gold-hi));
   background-size:200% auto;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   animation:shimmer 4s linear infinite;
 }
 .ck{color:var(--green);font-size:11px;flex-shrink:0;margin-top:2px}
-.check-row{display:flex;gap:10px;align-items:flex-start;font-size:11px}
-
-/* ── price stats ── */
-.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:28px}
-.p-stat{padding:16px 14px;border:1px solid var(--line);background:var(--surface);text-align:center}
-.p-stat-g{border-color:var(--line-g);background:var(--panel)}
-.p-stat-l{font-size:8px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.p-stat-v{font-family:'Syne',sans-serif;font-weight:800}
+.check-row{display:flex;gap:10px;align-items:flex-start;font-size:11px;margin-bottom:8px}
+.p-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px}
+.p-stat{padding:14px 12px;border:1px solid var(--line);background:var(--surface);text-align:center}
+.p-stat-g{border-color:var(--line-g)}
+.p-stat-l{font-size:8px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}
+.p-stat-v{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem}
 
 /* ── contact ── */
-.contact-strip{display:flex;flex-direction:column;border:1px solid var(--line-g);overflow:hidden}
-.contact-item{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line-g)}
-.contact-item:last-child{border-bottom:none}
+.contact-strip{border:1px solid var(--line-g);overflow:hidden}
+.c-item{padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line-g)}
+.c-item:last-child{border-bottom:none}
 
-/* ── mobile breakpoint ── */
-@media(max-width:480px){
-  :root{--pad:16px}
+/* ════════════════════════════
+   MOBILE — max 600px
+   ════════════════════════════ */
+@media(max-width:600px){
+
+  /* stats: 2 col, last spans full */
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){grid-column:1/-1}
+  .stat-v{font-size:1.7rem}
+
+  /* ROI: stack to single column */
+  .roi-grid{grid-template-columns:1fr}
+  .roi-card{padding:14px}
+
+  /* timeline: hide date column, embed in content */
+  .tl-when{display:none}
+  .tl-mobile-date{
+    display:block;
+    font-size:9px;color:var(--dim);letter-spacing:.06em;
+    margin-bottom:5px;
+  }
+
+  /* pricing stats: 2+1 */
+  .p-stats{grid-template-columns:1fr 1fr}
+  .p-stat:nth-child(3){grid-column:1/-1}
+  .price-num{font-size:2.4rem}
+
+  /* contact: already column */
+  .contact-strip{border:none}
+  .c-item{border:1px solid var(--line-g);margin-bottom:8px}
+  .c-item:last-child{margin-bottom:0}
+
+  /* general */
+  .wrap{padding:0 16px}
   body{font-size:13px}
-
-  /* topbar: stack vertically */
-  .topbar{flex-direction:column!important;gap:10px!important;align-items:flex-start!important}
-  .topbar-meta{text-align:left!important}
-
-  /* hero */
-  .hero-title{font-size:2rem!important}
-  .stats{grid-template-columns:1fr 1fr!important}
-  .stat:last-child{grid-column:1/-1}
-
-  /* roi: stack each pair */
-  .roi-row{grid-template-columns:1fr!important}
-  .roi-label-row{display:none}
-
-  /* timeline: collapse label into content */
-  .tl-item{grid-template-columns:0px 24px 1fr!important}
-  .tl-when{display:none!important}
-  .tl-content-mobile-label{display:block!important}
-
-  /* pricing: stack stats */
-  .p-stats{grid-template-columns:1fr 1fr!important}
-  .price-num{font-size:2.6rem!important}
-
-  /* contact strip already column */
 }
 
-/* show mobile label only on mobile */
-.tl-mobile-label{display:none;font-size:9px;color:var(--dim);letter-spacing:.06em;margin-bottom:4px}
-@media(max-width:480px){
-  .tl-mobile-label{display:block}
-  .tl-item{grid-template-columns:0 24px 1fr!important}
-  .tl-when{width:0;overflow:hidden;padding:0!important}
-}
+/* mobile date: hidden on desktop */
+.tl-mobile-date{display:none}
 </style>
 </head>
 <body>
 
-<!-- starfield -->
 <canvas id="cv" style="position:fixed;inset:0;z-index:1;pointer-events:none"></canvas>
 <script>
 (()=>{
   const c=document.getElementById('cv'),x=c.getContext('2d');
   let W,H,s=[];
-  const init=()=>{
-    W=c.width=innerWidth;H=c.height=innerHeight;s=[];
-    for(let i=0;i<80;i++)s.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.6+.1,a:Math.random()*.5+.05,d:(Math.random()-.5)*.003});
-  };
-  const draw=()=>{
-    x.clearRect(0,0,W,H);
-    s.forEach(p=>{
-      p.a=Math.max(.05,Math.min(.6,p.a+p.d));
-      if(p.a>=.6||p.a<=.05)p.d*=-1;
-      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
-      x.fillStyle=`rgba(255,255,255,${p.a})`;x.fill();
-    });
-    requestAnimationFrame(draw);
-  };
+  const init=()=>{W=c.width=innerWidth;H=c.height=innerHeight;s=[];for(let i=0;i<90;i++)s.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*.7+.1,a:Math.random()*.5+.05,d:(Math.random()-.5)*.003})};
+  const draw=()=>{x.clearRect(0,0,W,H);s.forEach(p=>{p.a=Math.max(.05,Math.min(.6,p.a+p.d));if(p.a>=.6||p.a<=.05)p.d*=-1;x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);x.fillStyle=`rgba(255,255,255,${p.a})`;x.fill()});requestAnimationFrame(draw)};
   addEventListener('resize',init);init();draw();
 })();
 </script>
 
-<!-- ═══ TOPBAR ═══ -->
-<div style="position:relative;z-index:2;border-bottom:1px solid var(--line);padding:14px var(--pad)">
-  <div class="wrap" style="padding:0">
-    <div class="topbar" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-
-      <div class="fu" style="display:flex;align-items:center;gap:12px">
-        <div style="width:30px;height:30px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0">
-          <span class="syne" style="font-size:10px;font-weight:800;color:var(--gold)">VX</span>
-          <div style="position:absolute;top:-3px;right:-3px;width:5px;height:5px;background:var(--gold);border-radius:50%;box-shadow:0 0 5px var(--gold)"></div>
-        </div>
-        <div>
-          <div class="syne" style="font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase">VANTIX</div>
-          <div style="font-size:8px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase">AI Software House</div>
-        </div>
+<!-- TOP BAR -->
+<div style="position:relative;z-index:2;border-bottom:1px solid var(--line);padding:16px 20px">
+  <div style="max-width:800px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+    <div class="fu" style="display:flex;align-items:center;gap:12px">
+      <div style="width:32px;height:32px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0">
+        <span class="syne" style="font-size:11px;font-weight:800;color:var(--gold)">VX</span>
+        <div style="position:absolute;top:-3px;right:-3px;width:5px;height:5px;background:var(--gold);border-radius:50%;box-shadow:0 0 6px var(--gold)"></div>
       </div>
-
-      <div class="fu d1 topbar-meta" style="text-align:right">
-        <div style="font-size:9px;color:var(--dim)">Oferta poufna</div>
-        <div style="font-size:9px;color:var(--gold);margin-top:2px">13.04.2026</div>
+      <div>
+        <div class="syne" style="font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase">VANTIX</div>
+        <div style="font-size:8px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase">AI Software House</div>
       </div>
+    </div>
+    <div class="fu d1" style="text-align:right">
+      <div style="font-size:9px;color:var(--dim)">Oferta · D. Kabsch · Poufne</div>
+      <div style="font-size:9px;color:var(--gold);margin-top:2px">13.04.2026 · kacper@vantix.pl</div>
     </div>
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<div class="wrap" style="padding-top:52px;padding-bottom:52px">
-  <div class="fu d1" style="margin-bottom:18px"><span class="tag">Projekt dedykowany · D. Kabsch</span></div>
-
-  <h1 class="syne fu d2 hero-title" style="font-size:clamp(1.9rem,7vw,3rem);font-weight:800;line-height:1.06;letter-spacing:-.02em;margin-bottom:16px">
-    Autonomous<br>
-    <span class="gold-grad">ICP Lead Hunter</span>
+<!-- HERO -->
+<div class="wrap" style="padding-top:56px;padding-bottom:52px">
+  <div class="fu d1" style="margin-bottom:20px"><span class="tag">Projekt dedykowany · D. Kabsch</span></div>
+  <h1 class="syne fu d2" style="font-size:clamp(1.8rem,6vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px">
+    Autonomous<br><span class="gold-grad">ICP Lead Hunter</span>
   </h1>
-
   <p class="fu d3" style="color:var(--dim);max-width:480px;margin-bottom:44px;font-size:12px;line-height:1.85">
-    Automatyczna identyfikacja firm z content gap na YouTube — wzbogacona o KRS, REGON,
-    EU-Startups i Product Hunt. Jeden pipeline → kwalifikowane leady w Google Sheets.
+    System automatycznej identyfikacji firm z content gap na YouTube.
+    Wzbogacony o dane z KRS, REGON, EU-Startups i Product Hunt.
+    Output: kwalifikowane leady w Google Sheets.
   </p>
-
   <div class="stats fu d4">
-    <div class="stat">
-      <span class="stat-v">45</span>
-      <span class="stat-l">dni do ROI</span>
-    </div>
-    <div class="stat">
-      <span class="stat-v">5+</span>
-      <span class="stat-l">źródeł danych</span>
-    </div>
-    <div class="stat">
-      <span class="stat-v">2 tyg</span>
-      <span class="stat-l">wdrożenie</span>
-    </div>
+    <div class="stat"><span class="stat-v">45</span><span class="stat-l">dni do ROI</span></div>
+    <div class="stat"><span class="stat-v">5+</span><span class="stat-l">źródeł danych</span></div>
+    <div class="stat"><span class="stat-v">2 tyg</span><span class="stat-l">czas wdrożenia</span></div>
   </div>
 </div>
 
 <span class="hl" style="position:relative;z-index:2"></span>
 
-<!-- ═══ ROI ═══ -->
+<!-- ROI -->
 <div class="wrap" style="padding-top:56px;padding-bottom:56px">
-  <div class="sn">01 · Dlaczego 7 500 PLN to inwestycja</div>
+  <div class="sn">01 · Dlaczego 7 500 PLN to inwestycja, nie koszt</div>
 
-  <!-- labels (hidden on mobile) -->
-  <div class="roi-row roi-label-row" style="margin-bottom:4px">
-    <div class="roi-label" style="color:var(--dim);padding-left:4px">Bez systemu</div>
-    <div class="roi-label" style="color:var(--gold);padding-left:4px">Z systemem</div>
-  </div>
-
-  <!-- koszt -->
-  <div class="roi-row">
-    <div class="roi-cell roi-cell-bad">
+  <!-- row 1: koszt -->
+  <div style="font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Koszt</div>
+  <div class="roi-grid" style="margin-bottom:16px">
+    <div class="roi-card roi-bad">
       <span class="roi-icon">💸</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Koszt miesięczny</div>
-        <div class="roi-val" style="color:var(--red)">3 500 PLN</div>
+        <div class="roi-val roi-val-bad">3 500 PLN / mc</div>
         <div class="roi-sub">każdy miesiąc, w nieskończoność</div>
       </div>
     </div>
-    <div class="roi-cell roi-cell-good">
+    <div class="roi-card roi-good">
       <span class="roi-icon">✦</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Koszt setup</div>
-        <div class="roi-val" style="color:var(--green)">7 500 PLN</div>
-        <div class="roi-sub">raz na zawsze</div>
+        <div class="roi-val roi-val-good">7 500 PLN raz</div>
+        <div class="roi-sub">jednorazowo, na zawsze</div>
       </div>
     </div>
   </div>
 
-  <!-- czas -->
-  <div class="roi-row">
-    <div class="roi-cell roi-cell-bad">
+  <!-- row 2: czas -->
+  <div style="font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Czas / tydzień</div>
+  <div class="roi-grid" style="margin-bottom:16px">
+    <div class="roi-card roi-bad">
       <span class="roi-icon">⏳</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Czas / tydzień</div>
-        <div class="roi-val" style="color:var(--red)">15–20h</div>
+        <div class="roi-val roi-val-bad">15–20h</div>
         <div class="roi-sub">handlowiec na researchu</div>
       </div>
     </div>
-    <div class="roi-cell roi-cell-good">
+    <div class="roi-card roi-good">
       <span class="roi-icon">⚡</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Czas / tydzień</div>
-        <div class="roi-val" style="color:var(--green)">0h</div>
+        <div class="roi-val roi-val-good">0h</div>
         <div class="roi-sub">system działa autonomicznie</div>
       </div>
     </div>
   </div>
 
-  <!-- jakość -->
-  <div class="roi-row">
-    <div class="roi-cell roi-cell-bad">
+  <!-- row 3: jakość -->
+  <div style="font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Jakość leadów</div>
+  <div class="roi-grid" style="margin-bottom:16px">
+    <div class="roi-card roi-bad">
       <span class="roi-icon">🎲</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Jakość leadów</div>
-        <div class="roi-val" style="color:var(--red)">losowa</div>
+        <div class="roi-val roi-val-bad">losowa</div>
         <div class="roi-sub">błędy, subiektywność</div>
       </div>
     </div>
-    <div class="roi-cell roi-cell-good">
+    <div class="roi-card roi-good">
       <span class="roi-icon">🎯</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Jakość leadów</div>
-        <div class="roi-val" style="color:var(--green)">scoring 0–10</div>
-        <div class="roi-sub">tylko Hot i Warm do Ciebie</div>
+        <div class="roi-val roi-val-good">scoring 0–10</div>
+        <div class="roi-sub">tylko Hot i Warm trafiają do Ciebie</div>
       </div>
     </div>
   </div>
 
-  <!-- skalowalność -->
-  <div class="roi-row" style="margin-bottom:16px">
-    <div class="roi-cell roi-cell-bad">
+  <!-- row 4: skalowalność -->
+  <div style="font-size:9px;color:var(--dim);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px">Skalowalność</div>
+  <div class="roi-grid" style="margin-bottom:20px">
+    <div class="roi-card roi-bad">
       <span class="roi-icon">🧱</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Skalowalność</div>
-        <div class="roi-val" style="color:var(--red)">kolejny etat</div>
+        <div class="roi-val roi-val-bad">kolejny etat</div>
         <div class="roi-sub">liniowy wzrost kosztów</div>
       </div>
     </div>
-    <div class="roi-cell roi-cell-good">
+    <div class="roi-card roi-good">
       <span class="roi-icon">∞</span>
       <div>
-        <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px">Skalowalność</div>
-        <div class="roi-val" style="color:var(--green)">nieograniczona</div>
+        <div class="roi-val roi-val-good">nieograniczona</div>
         <div class="roi-sub">100 lub 10 000 firm — ten sam koszt</div>
       </div>
     </div>
   </div>
 
-  <!-- summary row -->
+  <!-- bottom totals -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
-    <div style="padding:16px;border:1px solid var(--line);background:var(--surface);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-      <span style="font-size:10px;color:var(--dim)">Koszt roczny bez systemu</span>
-      <span class="syne" style="font-size:1.15rem;font-weight:700;color:var(--red)">42 000 PLN</span>
+    <div style="padding:16px;border:1px solid var(--line);background:var(--surface)">
+      <div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Koszt roczny bez systemu</div>
+      <div class="syne" style="font-size:1.3rem;font-weight:800;color:var(--red)">42 000 PLN</div>
     </div>
-    <div style="padding:16px;border:1px solid var(--line-g);background:var(--panel);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-      <span style="font-size:10px;color:var(--dim)">Zwrot inwestycji</span>
-      <span class="syne" style="font-size:1.15rem;font-weight:700;color:var(--gold)">45 dni</span>
+    <div style="padding:16px;border:1px solid var(--line-g);background:var(--panel)">
+      <div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px">Zwrot inwestycji</div>
+      <div class="syne" style="font-size:1.3rem;font-weight:800;color:var(--gold)">w &lt; 45 dni</div>
     </div>
   </div>
 
   <div style="padding:16px 18px;border-left:2px solid var(--gold);background:var(--gold-lo)">
     <p style="font-size:11px;color:var(--dim);line-height:1.85">
-      <span style="color:var(--gold)">Logika:</span> Płacisz raz tyle co 2 miesiące pracy handlowca.
+      <span style="color:var(--gold)">Logika:</span>
+      Płacisz raz tyle co 2 miesiące pracy handlowca-researchera.
       Każdy deal powyżej ~15k PLN zamknięty dzięki systemowi zwraca całą inwestycję.
     </p>
   </div>
@@ -364,45 +308,34 @@ body::before{
 
 <span class="hl-dim" style="position:relative;z-index:2"></span>
 
-<!-- ═══ DELIVERABLES ═══ -->
+<!-- DELIVERABLES -->
 <div class="wrap" style="padding-top:56px;padding-bottom:56px">
   <div class="sn">02 · Co dostajesz</div>
-
-  <div class="card" style="padding:4px 22px 0">
+  <div class="card" style="padding:8px 24px 0">
     <div class="drow">
       <span class="drow-n">01</span>
-      <div>
-        <div class="drow-title">Kompletny kod Python — Twoja własność</div>
-        <div class="drow-body">Pełny source code. Modyfikuj, rozwijaj, przekaż innemu devowi. Zero vendor lock-in.</div>
-      </div>
+      <div><div class="drow-title">Kompletny kod Python — Twoja własność</div>
+      <div class="drow-body">Pełny source code bez czarnych skrzynek. Możesz modyfikować, rozwijać, przekazać developerowi. Zero vendor lock-in.</div></div>
     </div>
     <div class="drow">
       <span class="drow-n">02</span>
-      <div>
-        <div class="drow-title">5 modułów w jednym agencie</div>
-        <div class="drow-body">KRS · REGON · YouTube API · EU-Startups · Product Hunt RSS — jeden pipeline, jeden output.</div>
-      </div>
+      <div><div class="drow-title">5 modułów danych w jednym agencie</div>
+      <div class="drow-body">KRS · REGON · YouTube Data API · EU-Startups · Product Hunt RSS — jeden pipeline, jeden output.</div></div>
     </div>
     <div class="drow">
       <span class="drow-n">03</span>
-      <div>
-        <div class="drow-title">ICP Scoring Engine</div>
-        <div class="drow-body">Score 0–10: brak kanału = 10, martwy = 8–9. Etykiety 🔥 Hot / ⚡ Warm / ❄️ Cold automatycznie.</div>
-      </div>
+      <div><div class="drow-title">ICP Scoring Engine</div>
+      <div class="drow-body">Score 0–10: brak kanału YT = 10, martwy kanał = 8–9. Etykiety 🔥 Hot / ⚡ Warm / ❄️ Cold automatycznie.</div></div>
     </div>
     <div class="drow">
       <span class="drow-n">04</span>
-      <div>
-        <div class="drow-title">Google Sheets — enriched rekord</div>
-        <div class="drow-body">30+ kolumn: nazwa, NIP, zarząd, kapitał, URL YT, sub, data wideo, funding, status outreachu.</div>
-      </div>
+      <div><div class="drow-title">Google Sheets — pełny enriched rekord</div>
+      <div class="drow-body">30+ kolumn: nazwa, NIP, zarząd, kapitał, URL YT, sub, data ostatniego wideo, funding, status outreachu.</div></div>
     </div>
     <div class="drow">
       <span class="drow-n">05</span>
-      <div>
-        <div class="drow-title">Dokumentacja + 30 dni support</div>
-        <div class="drow-body">README, opis modułów, briefing call 30–45 min. Telegram — odpowiedź do 24h.</div>
-      </div>
+      <div><div class="drow-title">Dokumentacja + 30 dni support</div>
+      <div class="drow-body">README, opis modułów, briefing call 30–45 min po przekazaniu. Odpowiedź via Telegram do 24h.</div></div>
     </div>
   </div>
 
@@ -411,70 +344,70 @@ body::before{
     <div style="display:flex;flex-wrap:wrap;gap:6px">
       <div class="pill"><div class="pill-dot"></div>KRS API</div>
       <div class="pill"><div class="pill-dot"></div>GUS REGON</div>
-      <div class="pill"><div class="pill-dot"></div>YouTube Data v3</div>
+      <div class="pill"><div class="pill-dot"></div>YouTube API v3</div>
       <div class="pill"><div class="pill-dot"></div>EU-Startups</div>
       <div class="pill"><div class="pill-dot"></div>Product Hunt RSS</div>
-      <div class="pill" style="border-style:dashed;color:var(--muted)"><div class="pill-dot" style="background:var(--muted)"></div>Crunchbase (opcja)</div>
+      <div class="pill" style="border-style:dashed;color:var(--muted)"><div class="pill-dot" style="background:var(--muted)"></div>Crunchbase (+)</div>
     </div>
   </div>
 </div>
 
 <span class="hl-dim" style="position:relative;z-index:2"></span>
 
-<!-- ═══ TIMELINE ═══ -->
+<!-- TIMELINE -->
 <div class="wrap" style="padding-top:56px;padding-bottom:56px">
   <div class="sn">03 · Timeline · 2 tygodnie</div>
 
   <div class="tl">
 
     <div class="tl-item">
-      <div class="tl-when">Tydzień 1<br><span style="color:var(--muted)">Dni 1–3</span></div>
+      <div class="tl-when">Tydzień 1<br>Dni 1–3</div>
       <div class="tl-spine">
         <div class="tl-dot"></div>
         <div class="tl-line"></div>
       </div>
       <div class="tl-content">
-        <div class="tl-mobile-label">Tydzień 1 · Dni 1–3</div>
+        <div class="tl-mobile-date">Tydzień 1 · Dni 1–3</div>
         <div class="tl-title">Setup środowiska + API keys</div>
-        <div class="tl-desc">YouTube API, Google Service Account, REGON. Testy połączeń i konfiguracja projektu.</div>
+        <div class="tl-desc">YouTube API, Google Service Account, klucz REGON. Testy połączeń i konfiguracja projektu.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-when">Tydzień 1<br><span style="color:var(--muted)">Dni 4–7</span></div>
+      <div class="tl-when">Tydzień 1<br>Dni 4–7</div>
       <div class="tl-spine">
         <div class="tl-dot"></div>
         <div class="tl-line"></div>
       </div>
       <div class="tl-content">
-        <div class="tl-mobile-label">Tydzień 1 · Dni 4–7</div>
+        <div class="tl-mobile-date">Tydzień 1 · Dni 4–7</div>
         <div class="tl-title">Build modułów + orchestrator</div>
-        <div class="tl-desc">KRS, REGON, YouTube gap detector, scrapers, scoring engine. Testy jednostkowe.</div>
+        <div class="tl-desc">KRS, REGON, YouTube gap detector, EU-Startups scraper, Product Hunt RSS, scoring engine.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-when">Tydzień 2<br><span style="color:var(--muted)">Dni 8–11</span></div>
+      <div class="tl-when">Tydzień 2<br>Dni 8–11</div>
       <div class="tl-spine">
         <div class="tl-dot"></div>
         <div class="tl-line"></div>
       </div>
       <div class="tl-content">
-        <div class="tl-mobile-label">Tydzień 2 · Dni 8–11</div>
+        <div class="tl-mobile-date">Tydzień 2 · Dni 8–11</div>
         <div class="tl-title">Google Sheets + testy end-to-end</div>
-        <div class="tl-desc">Pipeline na realnych danych. Weryfikacja scoringu, deduplicacja, 30+ kolumn.</div>
+        <div class="tl-desc">Pipeline na realnych danych. Weryfikacja scoringu, deduplicacja, formatowanie arkusza.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-when tl-when-gold">Tydzień 2<br><span style="color:var(--gold-hi)">Dni 12–14</span></div>
+      <div class="tl-when tl-when-gold">Tydzień 2<br>Dni 12–14</div>
       <div class="tl-spine">
         <div class="tl-dot-last"></div>
       </div>
-      <div class="tl-content">
-        <div class="tl-mobile-label" style="color:var(--gold)">Tydzień 2 · Dni 12–14</div>
+      <div class="tl-content" style="padding-bottom:0">
+        <div class="tl-mobile-date" style="color:var(--gold)">Tydzień 2 · Dni 12–14</div>
         <div class="tl-title tl-title-gold">Przekazanie · Dokumentacja · Briefing</div>
-        <div class="tl-desc">Code handover, README, call 30–45 min. System gotowy do pracy od razu.</div>
+        <div class="tl-desc">Code handover, README, call 30–45 min. System gotowy do pracy od razu po przekazaniu.</div>
       </div>
     </div>
 
@@ -483,22 +416,22 @@ body::before{
 
 <span class="hl" style="position:relative;z-index:2"></span>
 
-<!-- ═══ PRICING ═══ -->
+<!-- PRICING -->
 <div class="wrap" style="padding-top:56px;padding-bottom:56px">
   <div class="sn">04 · Inwestycja</div>
 
-  <div class="card card-g card-glow" style="padding:36px 28px;position:relative;overflow:hidden">
+  <div class="card card-g" style="padding:36px 28px;position:relative;overflow:hidden">
     <div style="position:absolute;top:-40px;right:-40px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(200,164,74,.07),transparent 70%);pointer-events:none"></div>
 
-    <div style="font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px">Jednorazowy build · pełny transfer kodu</div>
+    <div style="font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px">Jednorazowy build · pełny transfer kodu</div>
 
     <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
       <span class="price-num">7 500</span>
       <span style="color:var(--dim);font-size:13px">PLN netto</span>
     </div>
-    <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px">Setup fee · jednorazowa płatność</div>
+    <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:26px">Setup fee · jednorazowa płatność</div>
 
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
+    <div style="margin-bottom:24px">
       <div class="check-row"><span class="ck">✓</span><span>Pełny kod źródłowy — Twoja własność</span></div>
       <div class="check-row"><span class="ck">✓</span><span>Zero subskrypcji po stronie Vantix</span></div>
       <div class="check-row"><span class="ck">✓</span><span>30 dni support technicznego</span></div>
@@ -506,10 +439,10 @@ body::before{
       <div class="check-row"><span class="ck">✓</span><span>Briefing call po przekazaniu</span></div>
     </div>
 
-    <div style="padding:14px 16px;border:1px solid var(--line-g);background:rgba(0,0,0,.3);margin-bottom:0">
-      <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Matematyka dla Ciebie</div>
-      <div style="font-size:11px;color:var(--dim);line-height:1.85">
-        Handlowiec-researcher: 3 500 PLN/mc × 2mc = 7 000 PLN.<br>
+    <div style="padding:14px 16px;border:1px solid var(--line-g);background:rgba(0,0,0,.3)">
+      <div style="font-size:9px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Matematyka</div>
+      <div style="font-size:11px;color:var(--dim);line-height:1.8">
+        Handlowiec-researcher: ~3 500 PLN/mc × 2 = 7 000 PLN.<br>
         System: <span style="color:var(--gold)">7 500 PLN raz — pracuje w nieskończoność.</span>
       </div>
     </div>
@@ -517,15 +450,15 @@ body::before{
     <div class="p-stats">
       <div class="p-stat">
         <div class="p-stat-l">ROI za</div>
-        <div class="p-stat-v" style="font-size:1.4rem;color:var(--gold)">45 dni</div>
+        <div class="p-stat-v" style="color:var(--gold)">45 dni</div>
       </div>
       <div class="p-stat">
         <div class="p-stat-l">Oszczędność rok 1</div>
-        <div class="p-stat-v" style="font-size:1.2rem;color:var(--green)">~34k PLN</div>
+        <div class="p-stat-v" style="color:var(--green)">~34k</div>
       </div>
       <div class="p-stat p-stat-g">
         <div class="p-stat-l">Wdrożenie</div>
-        <div class="p-stat-v" style="font-size:1.2rem;color:var(--gold)">2 tyg.</div>
+        <div class="p-stat-v" style="color:var(--gold)">2 tyg.</div>
       </div>
     </div>
   </div>
@@ -533,40 +466,30 @@ body::before{
 
 <span class="hl-dim" style="position:relative;z-index:2"></span>
 
-<!-- ═══ CONTACT ═══ -->
+<!-- CONTACT -->
 <div class="wrap" style="padding-top:56px;padding-bottom:72px;text-align:center">
   <div style="font-size:9px;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px">05 · Kontakt</div>
   <h2 class="syne" style="font-size:clamp(1.4rem,5vw,2rem);font-weight:800;margin-bottom:12px;line-height:1.15">
     Pytania? Ustalmy szczegóły.<br>
     <span class="gold-grad">Jesteśmy do dyspozycji.</span>
   </h2>
-  <p style="font-size:12px;color:var(--dim);max-width:380px;margin:0 auto 36px;line-height:1.85">
+  <p style="font-size:11px;color:var(--dim);max-width:380px;margin:0 auto 36px;line-height:1.85">
     Po potwierdzeniu — faktura proforma w 24h.
     Start prac następny dzień roboczy po płatności.
   </p>
-
-  <div class="contact-strip" style="display:inline-flex;flex-direction:column;text-align:left;min-width:260px;max-width:100%">
-    <div class="contact-item">
-      <span style="color:var(--gold);font-size:14px;flex-shrink:0">✉</span>
-      <span style="font-size:12px;letter-spacing:.04em">kacper@vantix.pl</span>
-    </div>
-    <div class="contact-item">
-      <span style="color:var(--gold);font-size:14px;flex-shrink:0">◈</span>
-      <span style="font-size:12px;letter-spacing:.04em">Telegram: @vantix</span>
-    </div>
-    <div class="contact-item">
-      <span style="color:var(--gold);font-size:14px;flex-shrink:0">◆</span>
-      <span style="font-size:12px;letter-spacing:.04em">vantix.pl</span>
-    </div>
+  <div class="contact-strip">
+    <div class="c-item"><span style="color:var(--gold)">✉</span><span style="font-size:11px">kacper@vantix.pl</span></div>
+    <div class="c-item"><span style="color:var(--gold)">◈</span><span style="font-size:11px">Telegram: @vantix</span></div>
+    <div class="c-item"><span style="color:var(--gold)">◆</span><span style="font-size:11px">vantix.pl</span></div>
   </div>
 </div>
 
-<!-- ═══ FOOTER ═══ -->
-<div style="position:relative;z-index:2;border-top:1px solid var(--line);padding:16px var(--pad)">
-  <div class="wrap" style="padding:0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-    <div style="font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">© 2026 Vantix</div>
-    <div style="font-size:8px;color:var(--muted)">Oferta ważna 14 dni · Poufne</div>
-    <div style="font-size:8px;color:var(--muted)">13.04.2026 · DOC-ICP-001</div>
+<!-- FOOTER -->
+<div style="position:relative;z-index:2;border-top:1px solid var(--line);padding:16px 20px">
+  <div style="max-width:800px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <div style="font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">© 2026 Vantix AI Software House</div>
+    <div style="font-size:8px;color:var(--muted)">Oferta ważna 14 dni · Poufne · DOC-ICP-001</div>
+    <div style="font-size:8px;color:var(--muted)">13.04.2026</div>
   </div>
 </div>
 
